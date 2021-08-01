@@ -1,7 +1,7 @@
 // set global variables, import modules and classes
-const Engineer = require('/lib/Engineer');
-const Intern = require('/lib/Intern');
-const Manager = require('/lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager');
 
 const inquirer = require('inquirer');
 
@@ -24,7 +24,7 @@ function app() {
       {
         type: 'input',
         name:'managerId',
-        message: "What is the mnager's ID?"
+        message: "What is the manager's ID?"
       },
       {
         type: 'input',
@@ -60,10 +60,66 @@ function app() {
     ]).then(selection => {
       switch (selection.userChoice) {
         case 'Engineer':
-          // add engineer here
+          // add engineer
+          inquirer.prompt([
+            {
+              type:'input',
+              name: 'engineerName',
+              message: "What is this engineer's name?"
+            },
+            {
+              type: 'input',
+              name:'engineerId',
+              message: "What is this engineer's ID?"
+            },
+            {
+              type: 'input',
+              name: 'engineerEmail',
+              message: "What is this engineer's email?"
+            },
+            {
+              type: 'input',
+              name: 'engineerGitHub',
+              message: "What is this engineer's GitHub?"
+            }
+
+          ]).then(userAnswers => {
+            const engineer = new Engineer(userAnswers.engineerName, userAnswers.engineerId, userAnswers.engineerEmail, userAnswers.engineerGitHub)
+      
+            teamList.push(engineer);
+            idList.push(userAnswers.engineerId);
+          });
           break;
         case 'Intern':
           // add intern here
+          inquirer.prompt([
+            {
+              type:'input',
+              name: 'internName',
+              message: "What is this intern's name?"
+            },
+            {
+              type: 'input',
+              name:'internId',
+              message: "What is this intern's ID?"
+            },
+            {
+              type: 'input',
+              name: 'internEmail',
+              message: "What is this intern's email?"
+            },
+            {
+              type: 'input',
+              name: 'internSchool',
+              message: "What is this intern's school?"
+            }
+
+          ]).then(userAnswers => {
+            const intern = new Intern(userAnswers.internName, userAnswers.internId, userAnswers.internEmail, userAnswers.internSchool)
+      
+            teamList.push(intern);
+            idList.push(userAnswers.internId);
+          });
           break;
         default:
           // generate team for html
@@ -74,9 +130,9 @@ function app() {
   
   // CALLBACK TO CREATING FUNCTIONS
   
-  // add enginner
+    // add enginner
 
-  // add intern
+    // add intern
 
   // generate team for html
 
