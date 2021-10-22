@@ -3,6 +3,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
+const fs = require('fs');
 const inquirer = require('inquirer');
 
 const teamList = [];
@@ -88,6 +89,7 @@ function app() {
       
             teamList.push(engineer);
             idList.push(userAnswers.engineerId);
+            createTeam();
           });
           break;
         case 'Intern':
@@ -119,28 +121,31 @@ function app() {
       
             teamList.push(intern);
             idList.push(userAnswers.internId);
+            createTeam();
           });
           break;
-        default:
-          // generate team for html
+
+        case "I don't need anymore members":
+          break;
+        default: 
+          
+          function writeToFile(fileName, data) {
+            fs.writeToFile(path.join(__dirname, './dist/' + fileName), markDownHtml(data), (err) => {
+              if (err) throw err;
+              cosole.log('saved');
+            })
+          }
+
+          writeToFile('index.html', teamList)
+
+          return;
+        // 
         
       }
     })
   }
+  createManager();
   
-  // CALLBACK TO CREATING FUNCTIONS
-  
-    // add enginner
-
-    // add intern
-
-  // generate team for html
-
-
-
-
-
-
-
-
 }
+
+app();
